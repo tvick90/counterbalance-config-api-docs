@@ -1,0 +1,41 @@
+{
+  "openapi": "3.1.0",
+  "x-stoplight": {
+    "id": "o6doxopa68lg3"
+  },
+  "info": {
+    "title": "User Favorites",
+    "version": "1.0",
+    "description": "The User Favorites API allows users to save objects as favorites and access frequently used items quickly"
+  },
+  "servers": [
+    {
+      "url": "https://config.counterbalance.io"
+    }
+  ],
+  "paths": {
+    "/v1/ux/favorites": {
+      "get": {
+        "summary": "List User Favorites",
+        "tags": [],
+        "responses": {},
+        "operationId": "list-favorites",
+        "description": "",
+        "security": [
+          {
+            "Bearer Token": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "Bearer Token": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
