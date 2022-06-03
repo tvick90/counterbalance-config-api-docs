@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "Getting Started",
+      "uri": "docs/Getting-Started.md"
+    },
+    {
+      "type": "item",
+      "title": "Permissions",
+      "uri": "docs/Permissions.md"
+    },
+    {
+      "type": "divider",
+      "title": "Console & GUI"
+    },
+    {
+      "type": "item",
+      "title": "Notifications",
+      "uri": "reference/Config.v1.json"
+    },
+    {
+      "type": "divider",
+      "title": "User Experience"
+    },
+    {
+      "type": "item",
+      "title": "Notifications",
+      "uri": "reference/UX.v1.json"
+    },
+    {
+      "type": "divider",
+      "title": "Help & Support"
+    }
+  ]
+}
