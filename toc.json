@@ -25,8 +25,8 @@
     },
     {
       "type": "item",
-      "title": "Notifications",
-      "uri": "reference/UX.v1.json"
+      "title": "Favorites",
+      "uri": "reference/Favorites.v1.json"
     },
     {
       "type": "divider",
