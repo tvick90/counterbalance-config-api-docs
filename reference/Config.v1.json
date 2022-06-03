@@ -9,7 +9,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
+      "url": "https://config.counterbalance.io"
     }
   ],
   "paths": {
@@ -273,6 +273,12 @@
           "email",
           "emailVerified"
         ]
+      }
+    },
+    "securitySchemes": {
+      "Bearer Token": {
+        "type": "http",
+        "scheme": "bearer"
       }
     }
   }
