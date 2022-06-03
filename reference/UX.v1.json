@@ -17,11 +17,57 @@
     "/v1/ux/favorites": {
       "get": {
         "summary": "List User Favorites",
-        "tags": [
-          "Favorites"
-        ],
         "responses": {},
         "operationId": "list-favorites",
+        "description": "",
+        "security": [
+          {
+            "Bearer Token": []
+          }
+        ],
+        "tags": [
+          "User Favorites"
+        ]
+      },
+      "post": {
+        "summary": "Add Favorite Item",
+        "operationId": "add-favorite",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/201-Create-Favorite"
+          }
+        },
+        "description": "",
+        "security": [
+          {
+            "Bearer Token": []
+          }
+        ],
+        "tags": [
+          "User Favorites"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Create-Favorite"
+        }
+      }
+    },
+    "/v1/ux/favorites/{favoriteId}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/favoriteId"
+        }
+      ],
+      "delete": {
+        "summary": "Remove Favorite",
+        "operationId": "remove-favorite",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "User Favorites"
+        ],
         "description": "",
         "security": [
           {
@@ -30,11 +76,35 @@
         ]
       }
     },
+    "/v1/ux/favorites/search": {
+      "post": {
+        "summary": "Check Favorite Status",
+        "operationId": "search-favorite",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/200-Favorite-Search"
+          }
+        },
+        "description": "",
+        "security": [
+          {
+            "Bearer Token": []
+          }
+        ],
+        "tags": [
+          "User Favorites"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/Favorite-Search"
+        }
+      },
+      "parameters": []
+    },
     "/v1/ux/view": {
       "parameters": [],
       "post": {
-        "summary": "Create View",
-        "operationId": "create-view",
+        "summary": "Add View Item",
+        "operationId": "add-view-item",
         "responses": {
           "200": {
             "description": "OK"
@@ -43,6 +113,11 @@
         "description": "",
         "tags": [
           "View History"
+        ],
+        "security": [
+          {
+            "Bearer Token": []
+          }
         ]
       }
     }
@@ -63,12 +138,220 @@
         "x-tags": [
           "View History"
         ]
+      },
+      "Favorite-Item": {
+        "title": "Favorite Item",
+        "x-stoplight": {
+          "id": "ij7mf49xqw75n"
+        },
+        "type": "object",
+        "x-tags": [
+          "User Favorites"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "hash": {
+            "type": "string"
+          },
+          "object": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "readOnly": true
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "collector",
+                  "controller",
+                  "equipment",
+                  "gateway",
+                  "meter",
+                  "point",
+                  "report",
+                  "reset",
+                  "routine",
+                  "site",
+                  "user"
+                ],
+                "readOnly": true
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        }
       }
     },
     "securitySchemes": {
       "Bearer Token": {
         "type": "http",
         "scheme": "bearer"
+      }
+    },
+    "parameters": {
+      "favoriteId": {
+        "name": "favoriteId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "description": "A valid favorite item UUID"
+      }
+    },
+    "requestBodies": {
+      "Favorite-Search": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "collector",
+                    "controller",
+                    "equipment",
+                    "gateway",
+                    "meter",
+                    "point",
+                    "report",
+                    "reset",
+                    "routine",
+                    "site",
+                    "user"
+                  ]
+                },
+                "id": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Create-Favorite": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "collector",
+                    "controller",
+                    "equipment",
+                    "gateway",
+                    "meter",
+                    "point",
+                    "report",
+                    "reset",
+                    "routine",
+                    "site",
+                    "user"
+                  ]
+                },
+                "id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "id",
+                "name"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200-List-Favorites": {
+        "description": "Ok",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "index": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid",
+                    "readOnly": true
+                  },
+                  "readOnly": true
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Favorite-Item"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "201-Create-Favorite": {
+        "description": "Created",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "readOnly": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "200-Favorite-Search": {
+        "description": "Ok",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "uuid",
+                  "readOnly": true
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
