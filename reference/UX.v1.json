@@ -120,6 +120,36 @@
           }
         ]
       }
+    },
+    "/v1/ux/recent-views": {
+      "parameters": [],
+      "get": {
+        "summary": "Get Recently Viewed Items",
+        "operationId": "get-recent-views",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "View History"
+        ],
+        "description": "",
+        "security": [
+          {
+            "Bearer Token": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "limit"
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -130,14 +160,54 @@
           "id": "my08psuqi4rez"
         },
         "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          }
-        },
         "x-tags": [
           "View History"
-        ]
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "hash": {
+            "type": "string"
+          },
+          "object": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "readOnly": true
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "collector",
+                  "controller",
+                  "equipment",
+                  "gateway",
+                  "meter",
+                  "point",
+                  "report",
+                  "reset",
+                  "routine",
+                  "site",
+                  "user"
+                ],
+                "readOnly": true
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        }
       },
       "Favorite-Item": {
         "title": "Favorite Item",
@@ -280,6 +350,20 @@
                 "id",
                 "name"
               ]
+            }
+          }
+        }
+      },
+      "Create-View": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "": {
+                  "type": "string"
+                }
+              }
             }
           }
         }
