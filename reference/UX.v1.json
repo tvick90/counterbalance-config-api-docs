@@ -4,7 +4,7 @@
     "id": "o6doxopa68lg3"
   },
   "info": {
-    "title": "User Favorites",
+    "title": "User Experience",
     "version": "1.0",
     "description": "The User Favorites API allows users to save objects as favorites and access frequently used items quickly"
   },
@@ -17,7 +17,9 @@
     "/v1/ux/favorites": {
       "get": {
         "summary": "List User Favorites",
-        "tags": [],
+        "tags": [
+          "Favorites"
+        ],
         "responses": {},
         "operationId": "list-favorites",
         "description": "",
@@ -27,10 +29,42 @@
           }
         ]
       }
+    },
+    "/v1/ux/view": {
+      "parameters": [],
+      "post": {
+        "summary": "Create View",
+        "operationId": "create-view",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "",
+        "tags": [
+          "View History"
+        ]
+      }
     }
   },
   "components": {
-    "schemas": {},
+    "schemas": {
+      "View-Item": {
+        "title": "View Item",
+        "x-stoplight": {
+          "id": "my08psuqi4rez"
+        },
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "x-tags": [
+          "View History"
+        ]
+      }
+    },
     "securitySchemes": {
       "Bearer Token": {
         "type": "http",

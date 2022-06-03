@@ -16,17 +16,17 @@
     },
     {
       "type": "item",
-      "title": "Notifications",
+      "title": "Console Config",
       "uri": "reference/Config.v1.json"
+    },
+    {
+      "type": "item",
+      "title": "User Experience",
+      "uri": "reference/UX.v1.json"
     },
     {
       "type": "divider",
       "title": "User Experience"
-    },
-    {
-      "type": "item",
-      "title": "Favorites",
-      "uri": "reference/Favorites.v1.json"
     },
     {
       "type": "divider",
